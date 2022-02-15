@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\Http;
 
 final class Messenger implements Contract
 {
-    public function message(string $from, string $to, string $text, ?array $options): void
+    public function message(string $from, string $to, string $text, ?array $options = []): void
     {
-        Http::post($to, ['type' => 'mrkdwn', 'text' => $text]);
+        Http::post($to, [
+            'text' => $text,
+            'type' => 'mrkdwn',
+            ...$options,
+        ]);
     }
 }
